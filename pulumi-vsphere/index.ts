@@ -36,14 +36,14 @@ let template = dc.apply(dc => vsphere.getVirtualMachine({
 }));
 
 
-//Create VMs
+//Create rke01 VMs
 
-let master01 = new vsphere.VirtualMachine("pulumi01", {
+let rke01 = new vsphere.VirtualMachine("rke01.kr1ps.com", {
     resourcePoolId: resourcePool.id,
     datastoreId: datastoreId.id,
     folder: folder.path,
-    numCpus: 4,
-    memory: 4096,
+    numCpus: 6,
+    memory: 8192,
     guestId: template.guestId,
     networkInterfaces: [{
         networkId: networkId.id,
@@ -63,7 +63,86 @@ let master01 = new vsphere.VirtualMachine("pulumi01", {
             ipv4Gateway: "172.18.0.1",
             linuxOptions: {
                 domain: "kr1ps.com",
-                hostName: "master01"
+                hostName: "rke01"
+            },
+            networkInterfaces: [{
+                dnsDomain: "kr1ps.com",
+                ipv4Address: "172.18.0.21",
+                ipv4Netmask: 24,
+                dnsServerLists: ["172.18.0.1"]
+            }]
+        }
+    },
+});
+
+//Create rke02 VMs
+
+let rke02 = new vsphere.VirtualMachine("rke02.kr1ps.com", {
+    resourcePoolId: resourcePool.id,
+    datastoreId: datastoreId.id,
+    folder: folder.path,
+    numCpus: 6,
+    memory: 8192,
+    guestId: template.guestId,
+    networkInterfaces: [{
+        networkId: networkId.id,
+        adapterType: template.networkInterfaceTypes[0],
+    }],
+    disks: [{
+        label: "disk0",
+        size: template.disks[0].size,
+        eagerlyScrub: template.disks[0].eagerlyScrub,
+        thinProvisioned: template.disks[0].thinProvisioned,
+    }],
+    clone: {
+        templateUuid: template.id,
+        customize: {
+            dnsServerLists: ["172.18.0.1"],
+            dnsSuffixLists: ["kr1ps.com"],
+            ipv4Gateway: "172.18.0.1",
+            linuxOptions: {
+                domain: "kr1ps.com",
+                hostName: "rke02"
+            },
+            networkInterfaces: [{
+                dnsDomain: "kr1ps.com",
+                ipv4Address: "172.18.0.22",
+                ipv4Netmask: 24,
+                dnsServerLists: ["172.18.0.1"]
+            }]
+        }
+    },
+});
+
+
+//Create rke03 VMs
+
+let rke03 = new vsphere.VirtualMachine("rke03.kr1ps.com", {
+    resourcePoolId: resourcePool.id,
+    datastoreId: datastoreId.id,
+    folder: folder.path,
+    numCpus: 6,
+    memory: 8192,
+    guestId: template.guestId,
+    networkInterfaces: [{
+        networkId: networkId.id,
+        adapterType: template.networkInterfaceTypes[0],
+    }],
+    disks: [{
+        label: "disk0",
+        size: template.disks[0].size,
+        eagerlyScrub: template.disks[0].eagerlyScrub,
+        thinProvisioned: template.disks[0].thinProvisioned,
+    }],
+    clone: {
+        templateUuid: template.id,
+        customize: {
+            dnsServerLists: ["172.18.0.1"],
+            dnsSuffixLists: ["kr1ps.com"],
+            ipv4Gateway: "172.18.0.1",
+            linuxOptions: {
+                domain: "kr1ps.com",
+                hostName: "rke03"
             },
             networkInterfaces: [{
                 dnsDomain: "kr1ps.com",
@@ -74,3 +153,4 @@ let master01 = new vsphere.VirtualMachine("pulumi01", {
         }
     },
 });
+
