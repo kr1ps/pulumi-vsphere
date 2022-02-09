@@ -36,7 +36,7 @@ let template = dc.apply(dc => vsphere.getVirtualMachine({
 }));
 
 
-//Create VM
+//Create VMs
 
 let master01 = new vsphere.VirtualMachine("pulumi01", {
     resourcePoolId: resourcePool.id,
@@ -67,6 +67,8 @@ let master01 = new vsphere.VirtualMachine("pulumi01", {
             },
             networkInterfaces: [{
                 dnsDomain: "kr1ps.com",
+                ipv4Address: "172.18.0.23",
+                ipv4Netmask: 24,
                 dnsServerLists: ["172.18.0.1"]
             }]
         }
