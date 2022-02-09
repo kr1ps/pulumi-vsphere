@@ -36,9 +36,9 @@ let template = dc.apply(dc => vsphere.getVirtualMachine({
 }));
 
 
-//Create rke01 VMs
+//Create rke-01 VMs
 
-let rke01 = new vsphere.VirtualMachine("rke01.kr1ps.com", {
+let rke01 = new vsphere.VirtualMachine("rke-01.kr1ps.com", {
     resourcePoolId: resourcePool.id,
     datastoreId: datastoreId.id,
     folder: folder.path,
@@ -63,7 +63,7 @@ let rke01 = new vsphere.VirtualMachine("rke01.kr1ps.com", {
             ipv4Gateway: "172.18.0.1",
             linuxOptions: {
                 domain: "kr1ps.com",
-                hostName: "rke01"
+                hostName: "rke-01"
             },
             networkInterfaces: [{
                 dnsDomain: "kr1ps.com",
@@ -75,9 +75,9 @@ let rke01 = new vsphere.VirtualMachine("rke01.kr1ps.com", {
     },
 });
 
-//Create rke02 VMs
+//Create rke-02 VMs
 
-let rke02 = new vsphere.VirtualMachine("rke02.kr1ps.com", {
+let rke02 = new vsphere.VirtualMachine("rke-02.kr1ps.com", {
     resourcePoolId: resourcePool.id,
     datastoreId: datastoreId.id,
     folder: folder.path,
@@ -102,7 +102,7 @@ let rke02 = new vsphere.VirtualMachine("rke02.kr1ps.com", {
             ipv4Gateway: "172.18.0.1",
             linuxOptions: {
                 domain: "kr1ps.com",
-                hostName: "rke02"
+                hostName: "rke-02"
             },
             networkInterfaces: [{
                 dnsDomain: "kr1ps.com",
@@ -115,9 +115,9 @@ let rke02 = new vsphere.VirtualMachine("rke02.kr1ps.com", {
 });
 
 
-//Create rke03 VMs
+//Create rke-03 VMs
 
-let rke03 = new vsphere.VirtualMachine("rke03.kr1ps.com", {
+let rke03 = new vsphere.VirtualMachine("rke-03.kr1ps.com", {
     resourcePoolId: resourcePool.id,
     datastoreId: datastoreId.id,
     folder: folder.path,
@@ -142,7 +142,7 @@ let rke03 = new vsphere.VirtualMachine("rke03.kr1ps.com", {
             ipv4Gateway: "172.18.0.1",
             linuxOptions: {
                 domain: "kr1ps.com",
-                hostName: "rke03"
+                hostName: "rke-03"
             },
             networkInterfaces: [{
                 dnsDomain: "kr1ps.com",
